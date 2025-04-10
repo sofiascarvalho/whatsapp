@@ -3,10 +3,6 @@
     margin: 0;
 }
 
-ul, ol, li{
-    list-style: none;
-}
-
 header{
     width: 100%;
     display: flex;
@@ -25,7 +21,6 @@ main{
     height: 95vh;
     text-align: center;
     background-color: #063825;
-
     border: 1px solid black;
 }
 
@@ -40,12 +35,16 @@ main{
     border-radius: 15px;
 }
 
-#conversasContatos li{
+#conversasContatos {
     display: flex;
     align-items: center;
     margin-top: 2vh;
     gap: 1vw;
     padding: 1.5vh;
+}
+
+#conversasContatos li:hover{
+    background-color: #011f13;
 }
 
 #conversasContatos img {
@@ -70,6 +69,7 @@ main{
     height: 95vh;
     background-color: #02241f;
 }
+
 
 .contatoConversa{
     display: flex;
@@ -98,6 +98,106 @@ main{
     font-style: normal;
 }
 
+.mensagens {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    padding: 2vh;
+}
+
+.message1 {
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    background-color: #455a64;
+    border-radius: 0.5rem;
+    padding: 10px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.message2 {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    background-color: #4caf50;
+    border-radius: 0.5rem;
+    padding: 10px;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.message1 p,
+.message2 p {
+    margin: 0;
+}
+
+.message1 .time,
+.message2 .time {
+    font-size: 10px;
+    margin-top: 5px;
+    color: #ddd;
+    text-align: right;
+}
+
+
+.message1{
+    display: flex;
+    width: 12vw;
+    height: 10vh;
+    background-color: #455a64;
+    border-radius: 0.5rem;
+}
+
+.message1 {
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    height: auto;
+    background-color: #455a64;
+    border-radius: 0.5rem;
+    padding: 10px;
+    color: white;
+}
+
+.message1 p {
+    margin: 0;
+}
+
+.message1 .time {
+    font-size: 10px;
+    margin-top: 5px;
+    color: #ddd;
+    text-align: right;
+}
+
+
+.message2 {
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    height: auto;
+    background-color: #455a64;
+    border-radius: 0.5rem;
+    padding: 10px;
+    color: white;
+}
+
+.message2 p {
+    margin: 0;
+}
+
+.message2 .time {
+    font-size: 10px;
+    margin-top: 5px;
+    color: #ddd;
+    text-align: right;
+}
+
+
+
 .input-container {
     display: flex;
     gap: 10px; 
@@ -112,11 +212,19 @@ main{
 .teclado {
     flex: 1; 
     padding: 10px;
+    border-radius: 0.5rem;
 }
 
 button {
+    display: flex;
     padding: 10px 15px;
     cursor: pointer;
     color: green;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+button:hover{
+    background-color: #ccc;
 }
 
