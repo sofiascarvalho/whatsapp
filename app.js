@@ -1,40 +1,4 @@
-/*'use strict'
-
-async function buscarContatos() {
-    const url = `https://giovanna-whatsapp.onrender.com/v1/whatsapp/contatos/11987876567`
-    const response = await fetch(url)
-    const data = await response.json()
-
-    return data
-}
-
-function criarContato(contat) {
-    const contato = document.getElementById('conversasContatos')
-    const novoContato=document.createElement('div')
-    novoContato.src=link.dowload_url
-    contato.appendChild(novoContato)
-    novoContato.classList.add('contatos')
-
-    const conversas=document.getElementById('conversas')
-    const contatoConversa=document.createElement('div')
-    contatoConversa.src=link.dowload_url
-    conversas.appendChild(contatoConversa)
-    contatoConversa.classList.add('conversa')
-}
-
-async function preencherContatos() {
-    const contatos = await buscarContatos()
-    const listaConversas = document.getElementById('conversasContatos')
-
-    listaConversas.replaceChildren = ''
-
-    contatos.forEach(criarConversaContato)
-}
-
-window.onload=preencherContatos*/
-
-
-'use strict'
+'use strict';
 
 async function buscarContatos() {
     const url = `https://giovanna-whatsapp.onrender.com/v1/whatsapp/contatos/11987876567`;
@@ -47,11 +11,8 @@ async function buscarContatos() {
 function criarContato(contato) {
     const listaContatos = document.getElementById('conversasContatos');
 
-    const contatoDiv = document.createElement('div');
+    const contatoDiv = document.createElement('button');
     contatoDiv.classList.add('contato');
-
-    const profile = document.createElement('img');
-    imagem.src = contato.imagem || './img/user.png'; // imagem padrão se não vier da API
 
     const textoDiv = document.createElement('div');
     textoDiv.classList.add('textoContato');
@@ -62,23 +23,85 @@ function criarContato(contato) {
     const ultimaMensagem = document.createElement('p');
     ultimaMensagem.textContent = contato.ultimaMensagem;
 
-    textoDiv.appendChild(nome);
+    textoDiv.appendChild(name);
     textoDiv.appendChild(ultimaMensagem);
 
-    contatoDiv.appendChild(imagem);
     contatoDiv.appendChild(textoDiv);
-
     listaContatos.appendChild(contatoDiv);
+
+    contatoDiv.addEventListener('click', async function () {
+        await preencherConversa(contato.name);
+    });
 }
 
 async function preencherContatos() {
     const contatos = await buscarContatos();
     const listaContatos = document.getElementById('conversasContatos');
 
-    listaContatos.innerHTML = ''; // limpa antes de preencher
+    listaContatos.replaceChildren(); // Corrigido: agora limpa corretamente os filhos
 
-    contatos.forEach(criarContato);
+    console.log(contatos);
+
+    contatos.dados_contato.forEach(criarContato);
 }
 
-// Executa quando a página carregar
+async function preencherConversa(name) {
+    const contatos = await buscarConversa(name);
+    const conversa = contatos.conversas[0];
+    criarConversaContato(conversa);
+}
+
+async function buscarConversa(name) {
+    const url = `https://giovanna-whatsapp.onrender.com/v1/whatsapp/conversas?numero=11987876567&contato=${name}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    return data;
+}
+
+async function criarConversaContato(conversa) {
+    const conversaContato = document.getElementById('conversas')
+
+    const chat = document.createElement('div');
+    chat.classList.add('mensagem');
+
+    const conteudo = document.createElement('div');
+    conteudo.classList.add('dadosContato');
+
+    const nome = document.createElement('h2');
+    nome.textContent = conversa.name;
+
+    conteudo.appendChild(nome);
+
+    const messages = document.createElement('div');
+    messages.classList.add('mensagens');
+
+    conversa.conversas.forEach(mensagens => {
+        const message1 = document.createElement('div');
+        message1.classList.add('message1');
+
+        const remetente = document.createElement('p');
+        remetente.classList.add('remetente');
+        remetente.textContent = `${mensagens.sender}`;
+        message1.appendChild(remetente);
+
+        const message2 = document.createElement('div');
+        message2.classList.add('message2');
+
+        const enviando = document.createElement('p');
+        enviando.classList.add('enviando');
+        enviando.textContent = `${mensagens.content}`;
+        message2.appendChild(enviando);
+
+        messages.appendChild(message1);
+        messages.appendChild(message2);
+    });
+
+    chat.appendChild(conteudo);
+    chat.appendChild(messages);
+
+    conversaContato.appendChild(chat);
+}
+
+// Garante que o DOM esteja pronto
 window.onload = preencherContatos;
